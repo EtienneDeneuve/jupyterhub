@@ -11,7 +11,7 @@ RUN pip install jupyter
 
 # Install R
 RUN apt-get install -y apt-transport-https apt-utils
-RUN apt-key adv --keyserver keys.gnupg.net --recv-key 6212B7B7931C4BB16280BA1306F90DE5381BA480
+# RUN apt-key adv --keyserver keys.gnupg.net --recv-key 6212B7B7931C4BB16280BA1306F90DE5381BA480
 RUN echo "deb https://cran.univ-paris1.fr/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list.d/R.list
 
 RUN apt-get update
