@@ -6,6 +6,7 @@
 
 ## This is an application.
 
+
 ## The date format used by logging formatters for %(asctime)s
 #c.Application.log_datefmt = '%Y-%m-%d %H:%M:%S'
 
@@ -419,7 +420,7 @@
 #  
 #  Note that this does *not* prevent users from accessing files outside of this
 #  path! They can do so with many other means.
-c.Spawner.notebook_dir = '~/'
+#c.Spawner.notebook_dir = ''
 
 ## An HTML form for options a user can specify on launching their server.
 #  
@@ -526,9 +527,7 @@ c.Spawner.notebook_dir = '~/'
 #  Admin access should be treated the same way root access is.
 #  
 #  Defaults to an empty set, in which case no user has admin access.
-
-# c.Authenticator.admin_users = {'admin'}
-c.Authenticator.admin_users = {'laurent'}
+#c.Authenticator.admin_users = set()
 
 ## Dictionary mapping authenticator usernames to JupyterHub users.
 #  
@@ -579,13 +578,13 @@ c.Authenticator.admin_users = {'laurent'}
 #      adduser -q --gecos "" --home /customhome/river --disabled-password river
 #  
 #  when the user 'river' is created.
-c.LocalAuthenticator.add_user_cmd = ['useradd', '-d', '/home/USERNAME', '-m', '-p', 'IrFM2Of9004Cs']
+#c.LocalAuthenticator.add_user_cmd = []
 
 ## If set to True, will attempt to create local system users if they do not exist
 #  already.
 #  
 #  Supports Linux and BSD variants only.
-c.LocalAuthenticator.create_system_users = True
+#c.LocalAuthenticator.create_system_users = False
 
 ## Whitelist all users from this UNIX group.
 #  
@@ -599,7 +598,7 @@ c.LocalAuthenticator.create_system_users = True
 ## Authenticate local UNIX users with PAM
 
 ## The text encoding to use when communicating with PAM
-#c.PAMAuthenticator.encoding = 'utf8'
+c.PAMAuthenticator.encoding = 'utf8'
 
 ## Whether to open a new PAM session when spawners are started.
 #  
@@ -611,4 +610,11 @@ c.LocalAuthenticator.create_system_users = True
 #c.PAMAuthenticator.open_sessions = True
 
 ## The name of the PAM service to use for authentication
-#c.PAMAuthenticator.service = 'login'
+# c.PAMAuthenticator.service = 'login'
+
+c.Authenticator.admin_users = {'laurent'}
+c.LocalAuthenticator.add_user_cmd = ['useradd','-d','/home/USERNAME','-m','-p','IrFM2Of9004Cs']
+c.LocalAuthenticator.create_system_users = True
+c.Spawner.notebook_dir = '~/'
+# c.JupyterHub.ssl_cert = '/srv/jupyterhub/jupyterhub.pem'
+# c.JupyterHub.ssl_key = '/srv/jupyterhub/jupyterhub.key'
