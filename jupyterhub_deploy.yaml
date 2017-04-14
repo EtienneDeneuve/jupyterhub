@@ -4,7 +4,7 @@ metadata:
   labels:
     run: jupyterhub
   name: jupyterhub
-  namespace: default
+  namespace: jupyterhub
   resourceVersion: "426209"
   selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/jupyterhub
   uid: 1fa35062-1ec5-11e7-a4d6-000d3a254011
@@ -29,9 +29,12 @@ spec:
         imagePullPolicy: IfNotPresent
         name: jupyterhub
         ports:
-          - containerPort: 8000
+	- name: web	
+          containerPort: 8000
         volumeMounts:
-          - name: gluster-vc
-            mountPath: /home/
-        volumes:
-          - name: pvc-63d99004-1c92-11e7-a4d6-000d3a254011
+        - name: gluster-vc
+	  mountPath: /home
+     volumes:
+     - name: gluster-vc
+       persistantVolumeClaim:
+         claimName: gluster-jpt
