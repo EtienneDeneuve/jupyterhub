@@ -10,7 +10,7 @@ spec:
   - name: jupyterhub-withr
     image:  l2cconseils/jupyterhub:latest
     ports:
-    - name: web
+    - name: jupyterhub-web
       containerPort: 8000
     volumeMounts:
     - name: gluster-jpt-vol
@@ -25,13 +25,15 @@ kind: Service
 metadata:
   name: jupyterhub-web
   namespace: jupyterhub
-spec:      
+  labels:
+    name: jupyterhub-withr
+spec:
   type: NodePort
   ports:
   - port: 8000
     nodePort: 30300
   selector:
-    app: jupyterhub-withr
+    name: jupyterhub-withr
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
