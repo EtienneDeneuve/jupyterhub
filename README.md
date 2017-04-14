@@ -1,5 +1,5 @@
 # Download github jupyterhub
-> * mkdir /root/repo_git
+* mkdir /root/repo_git
 * cd repo_git
 * git init
 * get pull https://github.com/lcolombier/jupyterhub
