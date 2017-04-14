@@ -1,14 +1,11 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: ui-jupyterhubwithr
-  namespace: jupyterhub
 spec:
-  ports:
-  - nodePort: 31080
-    port: 8000
-    protocol: TCP
-    targetPort: 8000
   selector:
     app: jupyterhubwithr
-   type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 30100
