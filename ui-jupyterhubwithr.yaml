@@ -1,8 +1,8 @@
 kind: Service
 apiVersion: v1
 metadata:
-    run: jupyterhubwithr
     name: ui-jupyterhubwithr
+    namespace: jupyterhub
 spec:
   selector:
     app: jupyterhubwithr
