@@ -612,8 +612,8 @@ c.PAMAuthenticator.encoding = 'utf8'
 ## The name of the PAM service to use for authentication
 # c.PAMAuthenticator.service = 'login'
 
-c.Authenticator.admin_users = {'laurent'}
-c.LocalAuthenticator.add_user_cmd = ['useradd','-d','/home/USERNAME','-m','-p','IrFM2Of9004Cs']
+c.Authenticator.admin_users = {'admin'}
+c.LocalAuthenticator.add_user_cmd = ['useradd','-d','/home/USERNAME','-m','-p','CJRxICFZ5.ipE']
 c.LocalAuthenticator.create_system_users = True
 c.Spawner.notebook_dir = '~/'
 # c.JupyterHub.ssl_cert = '/srv/jupyterhub/jupyterhub.pem'

@@ -2,8 +2,8 @@ FROM jupyterhub/jupyterhub:latest
 RUN apt-get update
 
 # Install jupyterhub
-RUN useradd -d /home/laurent -m -p IrFM2Of9004Cs laurent
-# RUN useradd -d /home/admin -m -p cZlGSVzup98uU admin
+# RUN useradd -d /home/laurent -m -p IrFM2Of9004Cs laurent
+RUN useradd -d /admin -m -p cZlGSVzup98uU admin
 
 COPY jupyterhub_config.py /srv/jupyterhub/
 
