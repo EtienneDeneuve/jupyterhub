@@ -57,4 +57,8 @@ RUN mkdir -p /mnt/jupyterhub
 COPY setup_r_kernel.R /opt/
 RUN R -f /opt/setup_r_kernel.R
 
+# Install additional libs (pip)
+RUN pip install ipyparallel
+RUN pip install numpy
+
 WORKDIR /srv/jupyterhub
