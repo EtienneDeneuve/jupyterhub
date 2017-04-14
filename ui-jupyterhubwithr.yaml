@@ -1,12 +1,24 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-    name: ui-jupyterhubwithr
-    namespace: jupyterhub
+  creationTimestamp: 2017-04-14T10:10:16Z
+  labels:
+    run: jupyterhubwithr
+  name: jupyterhubwithr
+  namespace: jupyterhub
+  resourceVersion: "154737"
+  selfLink: /api/v1/namespaces/jupyterhub/services/jupyterhubwithr
+  uid: 8e92b580-20fa-11e7-98a3-363364383566
 spec:
-  selector:
-    app: jupyterhubwithr
+  clusterIP: 10.104.43.255
   ports:
-    - protocol: TCP
-      port: 8000
-      targetPort: 30100
+  - nodePort: 32543
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    run: jupyterhubwithr
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
