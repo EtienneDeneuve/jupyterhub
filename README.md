@@ -1,13 +1,13 @@
 # Download github jupyterhub
-> mkdir /root/repo_git
-> cd repo_git
-> git init
-> get pull https://github.com/lcolombier/jupyterhub
-> cd ..
-> mkdir jupyterhub
-> cd jupyterhub
-> cp ../repo_git/* ./
-> cd ..
+> * mkdir /root/repo_git
+* cd repo_git
+* git init
+* get pull https://github.com/lcolombier/jupyterhub
+* cd ..
+* mkdir jupyterhub
+* cd jupyterhub
+* cp ../repo_git/* ./
+* cd ..
 
 # Build de l'image docker
 >  docker build . -t withr
