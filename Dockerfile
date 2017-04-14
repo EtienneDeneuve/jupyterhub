@@ -18,6 +18,9 @@ RUN apt-get update
 RUN apt-get install --force-yes -y libcurl4-gnutls-dev libssl-dev r-base r-base-dev
 RUN apt-get clean
 
+# Retrieve Toree
+RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.6.tgz
+
 WORKDIR /opt
 RUN openssl rand -hex 1024 > configproxy.token
 RUN openssl rand -hex 32 > cookie.secret
