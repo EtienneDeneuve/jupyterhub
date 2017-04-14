@@ -18,8 +18,18 @@ RUN apt-get update
 RUN apt-get install --force-yes -y libcurl4-gnutls-dev libssl-dev r-base r-base-dev
 RUN apt-get clean
 
-# Retrieve Toree
+# Retrieve Java 7
+RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.tar.gz
+RUN tar xfvz 
+# Retrieve Toree - https://toree.incubator.apache.org/documentation/user/installation.html
 RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.6.tgz
+RUN tar xfvz spark-2.1.0-bin-hadoop2.6.tgz
+RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
+RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
+RUN export SPARK_HOME=/usr/local/bin/apache-spark/ 
+RUN export PATH="$PATH:/usr/local/bin/apache-spark/bin"
+RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/local/bin/apache-spark/'
+RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL
 
 WORKDIR /opt
 RUN openssl rand -hex 1024 > configproxy.token
