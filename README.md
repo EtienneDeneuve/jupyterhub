@@ -2,8 +2,11 @@
 
 ## Download github jupyterhub
 `mkdir /home/$USER/jupyterhub
+
 cd jupyterhub
+
 git init
+
 get pull https://github.com/lcolombier/jupyterhub`
 
 ## Build de l'image docker
