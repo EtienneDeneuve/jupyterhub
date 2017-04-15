@@ -31,11 +31,11 @@ RUN rm *.tar.gz
 # Install Java + env
 RUN mkdir /usr/local/java
 RUN mv jdk1.8.0_121 /usr/local/java/
-RUN export JAVA_HOME=/usr/local/java/jdk1.8.0_121
-RUN export JAVA_JRE=$JAVA_HOME/jre
-RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk1.8.0_121/bin/java" 1
-RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk1.8.0_121/bin/javac" 1
-RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/local/java/jdk1.8.0_121/bin/javaws" 1
+RUN export JAVA_HOME="/usr/local/java/jdk1.8.0_121"
+RUN export JAVA_JRE="$JAVA_HOME/jre"
+RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
+RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
+RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 RUN update-alternatives --set java /usr/local/java/jdk1.8.0_121/bin/java 
 RUN update-alternatives --set javac /usr/local/java/jdk1.8.0_121/bin/javac
 RUN update-alternatives --set javaws /usr/local/java/jdk1.8.0_121/bin/javaws
