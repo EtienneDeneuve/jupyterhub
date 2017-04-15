@@ -36,9 +36,9 @@ RUN export JAVA_JRE="$JAVA_HOME/jre"
 RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
-RUN update-alternatives --set java /usr/local/java/jdk1.8.0_121/bin/java 
-RUN update-alternatives --set javac /usr/local/java/jdk1.8.0_121/bin/javac
-RUN update-alternatives --set javaws /usr/local/java/jdk1.8.0_121/bin/javaws
+#RUN update-alternatives --set java /usr/local/java/jdk1.8.0_121/bin/java 
+#RUN update-alternatives --set javac /usr/local/java/jdk1.8.0_121/bin/javac
+#RUN update-alternatives --set javaws /usr/local/java/jdk1.8.0_121/bin/javaws
 
 # Install Toree
 RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
