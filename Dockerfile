@@ -36,17 +36,13 @@ RUN export JAVA_JRE="$JAVA_HOME/jre"
 RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
-#RUN update-alternatives --set java /usr/local/java/jdk1.8.0_121/bin/java 
-#RUN update-alternatives --set javac /usr/local/java/jdk1.8.0_121/bin/javac
-#RUN update-alternatives --set javaws /usr/local/java/jdk1.8.0_121/bin/javaws
 
 # Install Toree
 RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
 RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
-RUN export SPARK_HOME=/usr/local/bin/apache-spark/ 
+RUN export SPARK_HOME="/usr/local/bin/apache-spark/"
 RUN export PATH="$PATH:/usr/local/bin/apache-spark/bin"
-RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/local/bin/apache-spark/'
-RUN jupyter toree install --interpreters=Scala,PySpark,SparkR,SQL
+RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/local/bin/apache-spark/' --interpreters=Scala,PySpark,SparkR,SQL
 
 WORKDIR /opt
 RUN openssl rand -hex 1024 > configproxy.token
