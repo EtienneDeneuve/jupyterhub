@@ -61,4 +61,4 @@ spec:
     targetPort: 8001
     nodePort: 30301
   selector:
-app: jupyterhub-withr
+    app: jupyterhub-withr
