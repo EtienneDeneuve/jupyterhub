@@ -1,50 +1,24 @@
-# Download github jupyterhub
-* mkdir /root/repo_git
-* cd repo_git
-* git init
-* get pull https://github.com/lcolombier/jupyterhub
-* cd ..
-* mkdir jupyterhub
-* cd jupyterhub
-* cp ../repo_git/* ./
-* cd ..
+# Build docker image
+docker build . -t <tag>
 
-# Build de l'image docker
->  docker build . -t withr
+# Tip & tricks : How to Test
+docker exec -i -t <container> /bin/bash
+## Identification of docekr image
+docker images
+## Tag docker image
+docker tag <id_image> l2cconseils/jupyterhub:latest
+## How to push image?
+1. Login dockerhub
+2. docker push l2cconseils/jupyterhub:latest
 
-# Test du docker
-> docker exec -i -t <container> /bin/bash
+# Delete local images
+*docker images* then *docker rim <id_image>*, if necessary use *docker rim -f <id_image>* to force deletion.
 
-# Identification de l'image
-> docker images
+# Deployment with Kubernetes
+Go to Deployment directory and follow step 1, 2, 3. Add comments if you'd like to share an optimized version!
 
-# Tag de l'image docker
-> docker tag <id_image> l2cconseils/jupyterhub:latest
+# Run web-ui / api
+http://your_master_hostname:30300 / http://your_master_hostname:30301
 
-# Login dockerhub
-> docker login
-
-# Upload de l'image
-> docker push l2cconseils/jupyterhub:latest
-
-# Suppression des images locales
-> docker images
-ou
-> docker rim <id_image>
-si besoin de forcer -f
-
-# Lien avec GitHub
-Dans le site docker faire le lien avec GitHub et lancer le build.
-
-# Deployment dans kubernetes
-> kubectl run jupyterhub --image jupyterhub/jupyterhub:latest --namespace jupyterhub
-> kubectl run jupyterhubwithr --image lcolombier/jupyterhub:latest --namespace jupyterhub
-
-# Exposition du contener
-> kubectl expose deployments jupyterhubwithr --namespace=jupyterhub --port=8000 --type=LoadBalancer --name=jupyterhubwithr
-
-# Test accès au service
-http://[ip-master-kubernetes ou hostname masterkubernetes]:31087/
-
-# Conteneur id
+# once deployed you still can go inside if you need to
 > kubectl exec -i -t <container> /bin/bash
