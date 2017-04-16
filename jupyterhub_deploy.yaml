@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jupyterhub-withr
+  namespace: jupyterhub
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jupyterhub-withr
+    spec:
+      containers:
+      - name: jupyterhub
+        image: l2cconseils/jupyterhub:latest
+        ports:
+          - containerPort: 8000
+        volumeMounts:
+          - name: homes-volumes-jpt
+            mountPath: "/home"
+      volumes:
+        - name: homes-volumes-jpt
+          persistentVolumeClaim:
+            claimName: gluster-jpt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterhub
+  namespace: jupyterhub
+  labels:
+    app: jupyterhub-withr
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    nodePort: 30300
+  selector:
+    app: jupyterhub-withr
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+ name: gluster-jpt
+ namespace : jupyterhub
+ annotations:
+   volume.beta.kubernetes.io/storage-class: gluster-dyn
+spec:
+ accessModes:
+  - ReadWriteMany
+ resources:
+   requests:
+     storage: 5Gi

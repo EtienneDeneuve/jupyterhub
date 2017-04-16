@@ -1,0 +1,67 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jupyterhub-withr
+  namespace: jupyterhub
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jupyterhub-withr
+    spec:
+      containers:
+      - name: proxy
+        image: jupyterhub/configurable-http-proxy
+        ports:
+          - containerPort: 8000
+          - containerPort: 8001
+        command:
+          - configurable-http-proxy
+          - --ip
+          - 0.0.0.0
+          - --api-ip
+          - 0.0.0.0
+          - --default-target
+          - http://127.0.0.1:8081
+          - --error-target
+          - http://127.0.0.1:8081/hub/error
+      - name: jupyterhub
+        image: l2cconseils/jupyterhub:latest
+        ports:
+          - containerPort: 8081
+        volumeMounts:
+          - name: homes-volumes-jpt
+            mountPath: "/home"
+      volumes:
+        - name: homes-volumes-jpt
+          persistentVolumeClaim:
+            claimName: gluster-jpt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterhub-web
+  labels:
+    app: jupyterhub-withr
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    nodePort: 30300
+  selector:
+    app: jupyterhub-withr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterhub-api
+  labels:
+    app: jupyterhub-api
+spec:
+  type: NodePort
+  ports:
+  - port: 8001
+    targetPort: 30301
+  selector:
+    app: jupyterhub-withr
