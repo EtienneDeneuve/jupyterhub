@@ -3,7 +3,9 @@
 # NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                    STORAGECLASS   REASON    AGE
 # pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   5Gi        RWX           Delete          Bound     jupyterhub/gluster-jpt   gluster-dyn              21m
 #
-# Service is listening on port TCP 30300
+# Service ui is listening on port TCP 30300
+# Service api is listening on port TCP 30301
+#
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
