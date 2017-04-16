@@ -32,7 +32,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: jupyterhub
+  name: jupyterhub-ui
   namespace: jupyterhub
   labels:
     app: jupyterhub-withr
@@ -49,7 +49,7 @@ kind: Service
 metadata:
   name: jupyterhub-api
   labels:
-    app: jupyterhub-api
+    app: jupyterhub-withr
 spec:
   type: NodePort
   ports:
