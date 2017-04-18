@@ -29,8 +29,8 @@ RUN tar xfvz jdk-8u121-linux-x64.tar.gz
 RUN rm *.tar.gz
 
 # env
-RUN echo "JAVA_HOME="/usr/local/java/jdk1.8.0_121/" >> /etc/environement
-RUN echo "JAVA_JRE="$JAVA_HOME/jre" >> /etc/environment
+RUN echo "JAVA_HOME='/usr/local/java/jdk1.8.0_121/'" >> /etc/environement
+RUN echo "JAVA_JRE='$JAVA_HOME/jre'" >> /etc/environment
 RUN echo "PATH='$PATH:$JRE_HOME/bin:$JAVA_HOME/bin'" >> /etc/environment
 RUN echo "SPARK_HOME='/usr/local/bin/apache-spark/'" >> /etc/environment
 RUN echo "PATH='$PATH:/usr/local/bin/apache-spark/bin'" >> /etc/environment
