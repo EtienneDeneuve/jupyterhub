@@ -1,5 +1,5 @@
 options(download.file.method = "wget")
 chooseCRANmirror(ind=24)
-install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))
+install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest','RJSONIO','plyr','data.table'))
 devtools::install_github('IRkernel/IRkernel')
 IRkernel::installspec(user = FALSE)
