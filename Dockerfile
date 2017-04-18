@@ -27,4 +27,7 @@ RUN mkdir -p /mnt/jupyterhub
 COPY setup_r_kernel.R /opt/
 RUN R -f /opt/setup_r_kernel.R
 
+# /!\ Allow install packages on the fly /!\
+RUN chmod -R 777 /usr/lib/R/site-library
+
 WORKDIR /srv/jupyterhub
