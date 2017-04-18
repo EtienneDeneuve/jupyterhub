@@ -28,20 +28,22 @@ RUN tar xfvz spark-2.1.0-bin-hadoop2.6.tgz
 RUN tar xfvz jdk-8u121-linux-x64.tar.gz
 RUN rm *.tar.gz
 
-# Install Java + env
+# env
+RUN echo "JAVA_HOME="/usr/local/java/jdk1.8.0_121/" >> /etc/environement
+RUN echo "JAVA_JRE="$JAVA_HOME/jre" >> /etc/environment
+RUN echo "PATH='$PATH:$JRE_HOME/bin:$JAVA_HOME/bin'" >> /etc/environment
+RUN echo "SPARK_HOME='/usr/local/bin/apache-spark/'" >> /etc/environment
+RUN echo "PATH='$PATH:/usr/local/bin/apache-spark/bin'" >> /etc/environment
+RUN source /etc/environement
+
+# Install Java
 RUN mkdir /usr/local/java
 RUN mv jdk1.8.0_121 /usr/local/java/
-RUN export JAVA_HOME="/usr/local/java/jdk1.8.0_121"
-RUN export JAVA_JRE="$JAVA_HOME/jre"
-RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
-RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
-RUN export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 
 # Install Toree
 RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
 RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
-RUN export SPARK_HOME="/usr/local/bin/apache-spark/"
-RUN export PATH="$PATH:/usr/local/bin/apache-spark/bin"
+
 RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/local/bin/apache-spark/' --interpreters=Scala,PySpark,SparkR,SQL
 
 WORKDIR /opt
