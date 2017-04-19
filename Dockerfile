@@ -53,14 +53,17 @@ RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/lo
 WORKDIR /opt
 RUN openssl rand -hex 1024 > configproxy.token
 RUN openssl rand -hex 32 > cookie.secret
-RUN mkdir -p /mnt/jupyterhub
 
 # Install kernel R
 COPY setup_r_kernel.R /opt/
 RUN R -f /opt/setup_r_kernel.R
 
+
 # Install additional libs (pip)
 RUN pip install ipyparallel
 RUN pip install numpy
+
+# /!\ Allow install packages on the fly /!\
+RUN chmod -R 777 /usr/lib/R/site-library
 
 WORKDIR /srv/jupyterhub

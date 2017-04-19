@@ -1,0 +1,64 @@
+# Get volume name with > kubectl get pv -n jupyterhub
+# Should get something like this
+# NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                    STORAGECLASS   REASON    AGE
+# pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX   5Gi        RWX           Delete          Bound     jupyterhub/gluster-jpt   gluster-dyn              21m
+#
+# Service ui is listening on port TCP 30300
+# Service api is listening on port TCP 30301
+#
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jupyterhub-withr
+  namespace: jupyterhub
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jupyterhub-withr
+    spec:
+      containers:
+      - name: jupyterhub
+        image: l2cconseils/jupyterhub:latest
+        ports:
+          - containerPort: 8000
+        volumeMounts:
+          - name: pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+            mountPath: "/home"
+      volumes:
+        - name: pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+          persistentVolumeClaim:
+            claimName: gluster-jpt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterhub-ui
+  namespace: jupyterhub
+  labels:
+    app: jupyterhub-withr
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 30300
+  selector:
+    app: jupyterhub-withr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterhub-api
+  namespace: jupyterhub
+  labels:
+    app: jupyterhub-withr
+spec:
+  type: NodePort
+  ports:
+  - port: 8001
+    targetPort: 8001
+    nodePort: 30301
+  selector:
+    app: jupyterhub-withr
