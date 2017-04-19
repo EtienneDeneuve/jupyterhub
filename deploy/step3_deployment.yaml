@@ -20,14 +20,14 @@ spec:
     spec:
       containers:
       - name: jupyterhub
-        image: l2cconseils/jupytertoree:latest
+        image: l2cconseils/jupyterhubtoree:latest
         ports:
           - containerPort: 8000
         volumeMounts:
-          - name: pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+          - name: homes-volumes-jpt
             mountPath: "/home"
       volumes:
-        - name: pvc-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+        - name: homes-volumes-jpt
           persistentVolumeClaim:
             claimName: gluster-jpt
 ---
