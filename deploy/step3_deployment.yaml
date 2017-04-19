@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: jupyterhub
-        image: l2cconseils/jupyterhub:latest
+        image: l2cconseils/jupytertoree:latest
         ports:
           - containerPort: 8000
         volumeMounts:
