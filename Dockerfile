@@ -27,18 +27,8 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.6.tgz
 RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.tar.gz
 RUN tar xfvz spark-2.1.0-bin-hadoop2.6.tgz
 RUN tar xfvz jdk-8u121-linux-x64.tar.gz
-RUN rm *.tar.gz
-
-# env
-RUN echo "JAVA_HOME='/usr/local/java/jdk1.8.0_121/'" >> /etc/environment
-RUN echo "JAVA_JRE='$JAVA_HOME/jre'" >> /etc/environment
-RUN echo "PATH='$PATH:$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin'" >> /etc/environment
-RUN echo "SPARK_HOME='/usr/local/bin/apache-spark/'" >> /etc/environment
-
-RUN export JAVA_HOME='/usr/local/java/jdk1.8.0_121/'
-RUN export JAVA_JRE='$JAVA_HOME/jre'
-RUN export PATH='$PATH:$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin'
-RUN export SPARK_HOME='/usr/local/bin/apache-spark/'
+RUN rm spark-2.1.0-bin-hadoop2.6.tgz
+RUN rm jdk-8u121-linux-x64.tar.gz
 
 # Install Java
 RUN mkdir /usr/local/java
@@ -46,8 +36,9 @@ RUN mv jdk1.8.0_121 /usr/local/java/
 
 # Install Toree
 RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
+COPY spark_env.sh /usr/local/bin/apache-spark/conf
+RUN chmod +x /usr/local/bin/apache-spark/conf/spark_env.sh
 RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
-
 RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/local/bin/apache-spark/' --interpreters=Scala,PySpark,SparkR,SQL
 
 WORKDIR /opt
