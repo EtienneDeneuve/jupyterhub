@@ -21,6 +21,15 @@ spec:
       containers:
       - name: jupyterhub
         image: l2cconseils/jupyterhubtoree:latest
+        env :
+        - name: JAVA_HOME
+          value: "/usr/local/java/jdk1.8.0_121/"
+        - name: JAVA_JRE
+          value: "$JAVA_HOME/jre"
+        - name: PATH
+          value: "$PATH:$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin"
+        - name: SPARK_HOME
+          value: "/usr/local/bin/apache-spark/"
         ports:
           - containerPort: 8000
         volumeMounts:
