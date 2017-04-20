@@ -39,14 +39,14 @@ RUN tar xfvz spark-2.1.0-bin-hadoop2.6.tgz
 RUN rm spark-2.1.0-bin-hadoop2.6.tgz
 RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
 RUN mv /usr/local/bin/apache-spark/conf/spark_env.sh /usr/local/bin/apache-spark/conf/spark_env.bak
-#COPY spark_env.sh /usr/local/bin/apache-spark/conf/spark_env.sh
-ENV JAVA_HOME='/usr/local/java/jdk1.8.0_121'
-ENV JAVA_JRE='$JAVA_HOME/jre'
-ENV PATH='$PATH:$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin'
-ENV SPARK_HOME='/usr/local/bin/apache-spark'
+
+# Set ENV
+ENV JAVA_HOME=/usr/local/java/jdk1.8.0_121
+ENV JAVA_JRE=$JAVA_HOME/jre
+ENV PATH=$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin:$PATH
+ENV SPARK_HOME=/usr/local/bin/apache-spark
 
 # Install Toree
-RUN chmod +x /usr/local/bin/apache-spark/conf/spark_env.sh
 RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
 RUN jupyter toree install --spark_opts='--master=local[4]' --spark_home='/usr/local/bin/apache-spark/' --interpreters=Scala,PySpark,SparkR,SQL
 
