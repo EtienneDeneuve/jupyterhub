@@ -6,10 +6,7 @@ docker exec -i -t <container> /bin/bash
 ## Identification of docekr image
 docker images
 ## Tag docker image
-docker tag <id_image> l2cconseils/jupyterhub:latest
-## How to push image?
-1. Login dockerhub
-2. docker push l2cconseils/jupyterhub:latest
+docker tag <id_image> l2cconseils/jupyterhubtoree:latest
 
 ## Delete local images
 *docker images* then *docker rim <id_image>*, if necessary use *docker rim -f <id_image>* to force deletion.
