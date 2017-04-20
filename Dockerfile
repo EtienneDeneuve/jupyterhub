@@ -40,14 +40,7 @@ RUN rm /opt/spark-2.1.0-bin-hadoop2.6.tgz
 RUN mv /opt/spark-2.1.0-bin-hadoop2.6 /usr/local/bin/apache-spark
 
 # Set ENV
-ENV JAVA_HOME /usr/local/java/jdk1.8.0_121
-ENV JAVA_JRE $JAVA_HOME/jre
-ENV PATH $JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin:$PATH
-ENV SPARK_HOME /usr/local/bin/apache-spark
-RUN echo "JAVA_HOME=/usr/local/java/jdk1.8.0_121" >> /usr/local/bin/apache-spark/conf/spark-env.sh
-RUN echo "JAVA_JRE=$JAVA_HOME/jre" >> /usr/local/bin/apache-spark/conf/spark-env.sh
-RUN echo "PATH=$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin:$PATH" >> /usr/local/bin/apache-spark/conf/spark-env.sh
-RUN echo "SPARK_HOME=/usr/local/bin/apache-spark" >> /usr/local/bin/apache-spark/conf/spark-env.sh
+COPY spark-env.sh /usr/local/bin/apache-spark/conf/spark-env.sh
 
 # Install Toree
 RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
