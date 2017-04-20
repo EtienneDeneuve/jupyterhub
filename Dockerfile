@@ -45,6 +45,11 @@ ENV JAVA_HOME=/usr/local/java/jdk1.8.0_121
 ENV JAVA_JRE=$JAVA_HOME/jre
 ENV PATH=$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin:$PATH
 ENV SPARK_HOME=/usr/local/bin/apache-spark
+RUN echo "JAVA_HOME=/usr/local/java/jdk1.8.0_121" >> /root/.bashrc
+RUN echo "JAVA_JRE=$JAVA_HOME/jre" >> /root/.bashrc
+RUN echo "PATH=$JRE_HOME/bin:$JAVA_HOME/bin:/usr/local/bin/apache-spark/bin:$PATH" >> /root/.bashrc
+RUN echo "SPARK_HOME=/usr/local/bin/apache-spark" >> /root/.bashrc
+
 
 # Install Toree
 RUN pip install https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz
