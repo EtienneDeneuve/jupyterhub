@@ -1,7 +1,9 @@
 FROM jupyterhub/jupyterhub:latest
 
+ENV user_local admin
+ENV password_local cZlGSVzup98uU
 # Install jupyterhub
-RUN useradd -d /admin -m -p cZlGSVzup98uU admin
+RUN useradd -d /admin -m -p ${$user_local} ${$admin_local}
 
 WORKDIR /opt
 COPY jupyterhub_config.py /srv/jupyterhub/
